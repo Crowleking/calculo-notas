@@ -16,7 +16,7 @@ import AppFooter from './components/AppFooter.vue'
         <grade-table />
       </section>
 
-      <section>
+      <section class="flex-1 w-full">
         <grade-information />
       </section>
     </main>

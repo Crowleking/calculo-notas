@@ -1,14 +1,6 @@
 <script setup ts>
-import { computed } from 'vue'
 import IconAdd from '@/icons/IconAdd.vue'
 import IconClear from '@/icons/IconClear.vue'
-
-import { useGradesStore } from '@/stores/grades'
-const gradesStore = useGradesStore()
-const { addNote, clearNotes, notes } = gradesStore
-
-const maxNumberOfGrades = import.meta.env.VITE_MAX_NUMBER_OF_GRADES
-const notesLength = computed(() => notes.length)
 </script>
 
 <template>
@@ -22,8 +14,6 @@ const notesLength = computed(() => notes.length)
         <li>
           <a
             class="btn btn-secondary text-secondary-content"
-            :class="{ 'btn-disabled': notesLength >= maxNumberOfGrades }"
-            @click="addNote"
           >
             <icon-add />
             Agregar
@@ -31,7 +21,7 @@ const notesLength = computed(() => notes.length)
         </li>
 
         <li>
-          <a class="btn btn-secondary text-secondary-content" @click="clearNotes">
+          <a class="btn btn-secondary text-secondary-content">
             <icon-clear />
             Limpiar
           </a>

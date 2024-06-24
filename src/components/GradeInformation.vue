@@ -1,19 +1,36 @@
 <script lang="ts" setup>
-import { useGradesStore } from '@/stores/grades'
+import TableItem from './TableItem.vue'
 
+import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
+const { exam } = gradesStore
 </script>
 
 <template>
-  <div class="stats stats-horizontal shadow">
-    <div class="stat">
-      <div class="stat-title">Promedio</div>
-      <div class="stat-value">{{ gradesStore.average || '-' }}</div>
+  <section class="flex flex-col gap-4 items-center">
+    <div class="form-control w-52">
+      <label class="label cursor-pointer">
+        <span class="label-text">Dar examen</span>
+        <input type="checkbox" class="toggle toggle-secondary" checked="checked" />
+      </label>
     </div>
 
-    <div class="stat">
-      <div class="stat-title">Necesitarás</div>
-      <div class="stat-value">70</div>
+    <table class="table table-xs md:table-md w-full max-w-lg">
+      <tbody>
+        <table-item :note="exam" :title="'Examen'" :index="1" />
+      </tbody>
+    </table>
+
+    <div class="stats stats-horizontal shadow">
+      <div class="stat">
+        <div class="stat-title">Promedio</div>
+        <div class="stat-value">-</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Final</div>
+        <div class="stat-value">-</div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>

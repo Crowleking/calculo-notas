@@ -6,6 +6,7 @@ import IconDelete from '@/icons/IconDelete.vue'
 
 const props = defineProps<{
   index: number
+  title: string
   note: Note
 }>()
 
@@ -44,7 +45,7 @@ const updatePercentage = (index: number, percentage: number | null) => {
     <td>
       <div class="join w-full">
         <div class="flex join-item input input-bordered items-center bg-base-200">
-          #{{ index + 1 }}
+          {{ title }}
         </div>
         <input
           type="text"
