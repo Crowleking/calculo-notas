@@ -11,7 +11,7 @@ const { exam } = gradesStore
     <div class="form-control w-52">
       <label class="label cursor-pointer">
         <span class="label-text">Dar examen</span>
-        <input type="checkbox" class="toggle toggle-secondary" checked="checked" />
+        <input type="checkbox" class="toggle toggle-secondary" />
       </label>
     </div>
 
@@ -28,7 +28,7 @@ const { exam } = gradesStore
       </div>
 
       <div class="stat">
-        <div class="stat-title">Final</div>
+        <div class="stat-title">Promedio final</div>
         <div class="stat-value">-</div>
       </div>
     </div>
