@@ -3,7 +3,7 @@ import TableItem from './TableItem.vue'
 /* store */
 import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
-const { exam, average } = gradesStore
+const { exam } = gradesStore
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const { exam, average } = gradesStore
     <div class="stats stats-horizontal shadow">
       <div class="stat">
         <div class="stat-title">Promedio</div>
-        <div class="stat-value">{{ average || '-' }}</div>
+        <div class="stat-value">{{ gradesStore.average || '-' }}</div>
       </div>
 
       <div class="stat">
