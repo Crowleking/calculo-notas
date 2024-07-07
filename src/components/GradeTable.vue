@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TableItem from './TableItem.vue'
-
+/* store */
 import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
 const { notes } = gradesStore
