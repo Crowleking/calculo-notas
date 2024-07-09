@@ -10,13 +10,13 @@ import AppFooter from './components/AppFooter.vue'
     <app-navbar />
 
     <main
-      class="p-4 flex-grow flex gap-4 flex-col md:flex-row justify-between md:justify-around items-center md:items-start bg-base-100"
+      class="p-2 md:p-4 flex-grow gap-4 flex flex-col md:flex-row justify-between md:justify-evenly items-center md:items-start bg-base-100"
     >
-      <section class="overflow-x-auto max-h-80 md:max-h-96">
+      <section class="overflow-x-auto max-h-72 md:max-h-96">
         <grade-table />
       </section>
 
-      <section class="flex-1 w-full">
+      <section class="bg-base-200 rounded-lg p-4">
         <grade-information />
       </section>
     </main>

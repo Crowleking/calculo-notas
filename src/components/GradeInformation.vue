@@ -7,17 +7,17 @@ const { exam } = gradesStore
 </script>
 
 <template>
-  <section class="flex flex-col gap-4 items-center">
+  <div class="flex flex-col gap-4 items-center max-w-lg">
     <!-- Check ver ingreso examen -->
-    <div class="form-control w-52">
+    <div class="form-control w-full px-4">
       <label class="label cursor-pointer">
-        <span class="label-text">Dar examen</span>
+        <span class="label-text text-md antialiased font-semibold">Presiona si darás examen</span>
         <input type="checkbox" class="toggle toggle-secondary" />
       </label>
     </div>
 
     <!-- Tabla ingreso examen -->
-    <table class="table table-xs md:table-md w-full max-w-lg">
+    <table class="table table-xs md:table-md w-full">
       <tbody>
         <table-item :note="exam" :title="'Examen'" :index="1" />
       </tbody>
@@ -35,5 +35,5 @@ const { exam } = gradesStore
         <div class="stat-value">-</div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
