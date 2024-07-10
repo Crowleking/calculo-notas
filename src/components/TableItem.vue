@@ -71,7 +71,7 @@ const updatePercentage = (index: number, percentage: number | null) => {
     </td>
 
     <td>
-      <button @click="removeNote(index)" title="Eliminar" class="btn btn-outline btn-error">
+      <button v-if="props.title != 'Examen'" @click="removeNote(index)" title="Eliminar" class="btn btn-outline btn-error">
         <icon-delete />
       </button>
     </td>
