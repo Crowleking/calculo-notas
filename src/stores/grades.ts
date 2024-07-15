@@ -27,6 +27,9 @@ export const useGradesStore = defineStore('grades', () => {
   }
 
   function clearNotes() {
+    exam.value.grade = null
+    exam.value.percentage = null
+
     notes.value.map((note) => {
       note.grade = null
       note.percentage = null
@@ -107,6 +110,15 @@ export const useGradesStore = defineStore('grades', () => {
     return Math.round(finalAverage.value) < gradeForApproval
   })
 
+  const hasInvalidTotalPercentage = computed(() => {
+    const nonEmptyNotes = notes.value.filter((note) => note.percentage !== null)
+    if (nonEmptyNotes.length === 0) {
+      return 0
+    }
+    const totalPercentage = nonEmptyNotes.reduce((sum, note) => sum + note.percentage!, 0)
+    return totalPercentage != 100
+  })
+
   return {
     notes,
     isTakingExam,
@@ -119,6 +131,7 @@ export const useGradesStore = defineStore('grades', () => {
     average,
     finalAverage,
     neededGrade,
-    needsImprovement
+    needsImprovement,
+    hasInvalidTotalPercentage
   }
 })

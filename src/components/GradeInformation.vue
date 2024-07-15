@@ -16,6 +16,11 @@ const roundedFinalAverage = computed(() => {
 
 <template>
   <div class="flex flex-col gap-4 items-center w-full">
+    <!-- Mensajes de error -->
+    <div v-show="gradesStore.hasInvalidTotalPercentage" role="alert" class="alert alert-error">
+      <span>Tu ponderaci&oacute;n debe sumar 100%</span>
+    </div>
+
     <!-- Check ver ingreso examen -->
     <div class="form-control w-full px-4">
       <label class="label cursor-pointer">
