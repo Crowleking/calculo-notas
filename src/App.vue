@@ -16,7 +16,7 @@ import AppFooter from './components/AppFooter.vue'
         <grade-table />
       </section>
 
-      <section class="bg-base-200 rounded-lg p-4">
+      <section class="bg-base-200 rounded-lg p-4 w-full md:w-1/3">
         <grade-information />
       </section>
     </main>

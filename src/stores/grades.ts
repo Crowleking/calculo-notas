@@ -12,6 +12,7 @@ export const useGradesStore = defineStore('grades', () => {
     { grade: null, percentage: null }
   ])
 
+  const isTakingExam = ref(false)
   const exam = ref<Note>({ grade: null, percentage: null })
 
   function addNote() {
@@ -60,14 +61,34 @@ export const useGradesStore = defineStore('grades', () => {
     return roundedAverage
   })
 
+  const finalAverage = computed(() => {
+    if (!isTakingExam.value || exam.value.grade === null || exam.value.percentage === null) {
+      return average.value
+    }
+
+    const regularAverage = average.value
+    const examGrade = exam.value.grade
+    const examPercentage = exam.value.percentage
+
+    if (regularAverage === null) {
+      return null
+    }
+
+    const adjustedAverage = ((regularAverage * (100 - examPercentage)) + (examGrade * examPercentage)) / 100
+    // return Math.round(adjustedAverage)
+    return parseFloat(adjustedAverage.toFixed(2))
+  })
+
   return {
     notes,
+    isTakingExam,
     exam,
     addNote,
     removeNote,
     clearNotes,
     updateGrade,
     updatePercentage,
-    average
+    average,
+    finalAverage,
   }
 })

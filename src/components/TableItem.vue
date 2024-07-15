@@ -8,6 +8,7 @@ const props = defineProps<{
   index: number
   title: string
   note: Note
+  isExam?: boolean
 }>()
 
 const gradesStore = useGradesStore()
@@ -32,11 +33,19 @@ const removeNote = (index: number) => {
 }
 
 const updateGrade = (index: number, grade: number | null) => {
-  gradesStore.updateGrade(index, grade)
+  if (props.isExam) {
+    gradesStore.exam.grade = grade
+  } else {
+    gradesStore.updateGrade(index, grade)
+  }
 }
 
 const updatePercentage = (index: number, percentage: number | null) => {
-  gradesStore.updatePercentage(index, percentage)
+  if (props.isExam) {
+    gradesStore.exam.percentage = percentage
+  } else {
+    gradesStore.updatePercentage(index, percentage)
+  }
 }
 </script>
 
@@ -71,7 +80,12 @@ const updatePercentage = (index: number, percentage: number | null) => {
     </td>
 
     <td>
-      <button v-if="props.title != 'Examen'" @click="removeNote(index)" title="Eliminar" class="btn btn-outline btn-error">
+      <button
+        v-if="!props.isExam"
+        @click="removeNote(index)"
+        title="Eliminar"
+        class="btn btn-outline btn-error"
+      >
         <icon-delete />
       </button>
     </td>
