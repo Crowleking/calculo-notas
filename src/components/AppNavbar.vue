@@ -1,12 +1,13 @@
 <script setup ts>
 import { computed } from 'vue'
+/* iconos */
 import IconAdd from '@/icons/IconAdd.vue'
 import IconClear from '@/icons/IconClear.vue'
-
+/* store */
 import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
 const { addNote, clearNotes, notes } = gradesStore
-
+/* limites de notas */
 const maxNumberOfGrades = import.meta.env.VITE_MAX_NUMBER_OF_GRADES
 const notesLength = computed(() => notes.length)
 </script>

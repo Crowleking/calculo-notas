@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useGradesStore } from '@/stores/grades'
 import TableItem from './TableItem.vue'
-
+/* store */
+import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
 const { notes } = gradesStore
 </script>
@@ -17,7 +17,7 @@ const { notes } = gradesStore
     </thead>
 
     <tbody>
-      <table-item v-for="(note, index) in notes" :key="index" :note="note" :index="index" />
+      <table-item v-for="(note, index) in notes" :key="index" :note="note" :title="`#${index + 1}`" :index="index" />
     </tbody>
   </table>
 </template>
