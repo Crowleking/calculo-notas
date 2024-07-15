@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Note } from '@/interfaces/note.interface'
 
+const gradeForApproval = Number(import.meta.env.VITE_GRADE_FOR_APPROVAL)
 const maxNumberOfGrades = import.meta.env.VITE_MAX_NUMBER_OF_GRADES
 
 export const useGradesStore = defineStore('grades', () => {
@@ -52,13 +53,10 @@ export const useGradesStore = defineStore('grades', () => {
       }
     })
 
-    // If totalPercentage is 0, return null to avoid division by zero
-    const hasValidPercentage = totalPercentage > 0
-    if (!hasValidPercentage) return null
+    if (totalPercentage === 0) return null
 
     const weightedAverage = (totalWeightedGrades * 100) / totalPercentage
-    const roundedAverage = Math.round(weightedAverage)
-    return roundedAverage
+    return weightedAverage
   })
 
   const finalAverage = computed(() => {
@@ -74,9 +72,39 @@ export const useGradesStore = defineStore('grades', () => {
       return null
     }
 
-    const adjustedAverage = ((regularAverage * (100 - examPercentage)) + (examGrade * examPercentage)) / 100
-    // return Math.round(adjustedAverage)
-    return parseFloat(adjustedAverage.toFixed(2))
+    const adjustedAverage =
+      (regularAverage * (100 - examPercentage) + examGrade * examPercentage) / 100
+    return adjustedAverage
+  })
+
+  const neededGrade = computed(() => {
+    if (finalAverage.value === null) {
+      return null
+    }
+
+    const regularAverage = average.value
+    const examPercentage = exam.value.percentage
+
+    if (regularAverage === null || examPercentage === null) {
+      return null
+    }
+
+    for (let grade = 0; grade <= 100; grade++) {
+      const adjustedAverage =
+        (regularAverage * (100 - examPercentage) + grade * examPercentage) / 100
+      if (Math.round(adjustedAverage) >= gradeForApproval) {
+        return grade
+      }
+    }
+
+    return 100
+  })
+
+  const needsImprovement = computed(() => {
+    if (!isTakingExam.value || finalAverage.value === null) {
+      return false
+    }
+    return Math.round(finalAverage.value) < gradeForApproval
   })
 
   return {
@@ -90,5 +118,7 @@ export const useGradesStore = defineStore('grades', () => {
     updatePercentage,
     average,
     finalAverage,
+    neededGrade,
+    needsImprovement
   }
 })

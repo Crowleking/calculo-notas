@@ -1,8 +1,17 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import TableItem from './TableItem.vue'
 /* store */
 import { useGradesStore } from '@/stores/grades'
 const gradesStore = useGradesStore()
+
+const roundedAverage = computed(() => {
+  return gradesStore.average !== null ? gradesStore.average.toFixed(1) : '-'
+})
+
+const roundedFinalAverage = computed(() => {
+  return gradesStore.finalAverage !== null ? gradesStore.finalAverage.toFixed(1) : '-'
+})
 </script>
 
 <template>
@@ -26,17 +35,19 @@ const gradesStore = useGradesStore()
     <div class="stats stats-horizontal shadow">
       <div class="stat">
         <div class="stat-title">Promedio</div>
-        <div class="stat-value">{{ gradesStore.average || '-' }}</div>
+        <div class="stat-value">{{ roundedAverage }}</div>
       </div>
 
-      <div class="stat">
+      <div class="stat" v-show="gradesStore.isTakingExam">
         <div class="stat-title">Final</div>
-        <div class="stat-value">{{ gradesStore.finalAverage || '-' }}</div>
+        <div class="stat-value" :class="{ 'text-error': gradesStore.needsImprovement }">
+          {{ roundedFinalAverage }}
+        </div>
       </div>
 
-      <div class="stat">
+      <div class="stat" v-show="gradesStore.needsImprovement">
         <div class="stat-title">Necesitas</div>
-        <div class="stat-value">-</div>
+        <div class="stat-value">{{ gradesStore.neededGrade }}</div>
       </div>
     </div>
   </div>
